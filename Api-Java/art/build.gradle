@@ -18,6 +18,7 @@ repositories {
 }
 
 dependencies {
+
 	// Spring Boot Base
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
@@ -45,10 +46,16 @@ dependencies {
 	implementation 'org.modelmapper:modelmapper:3.2.0' // Маппінг DTO <-> Entity
 	implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310' // Для LocalDateTime у JSON
 
+	//Lombok
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+
 	// Тестування
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testCompileOnly 'org.projectlombok:lombok'
+	testAnnotationProcessor 'org.projectlombok:lombok'
 }
 
 tasks.named('test') {
