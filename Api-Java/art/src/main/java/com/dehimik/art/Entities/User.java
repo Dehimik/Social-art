@@ -1,5 +1,6 @@
 package com.dehimik.art.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Setter;
@@ -49,7 +50,6 @@ public class User implements UserDetails {
     public String getPassword() {
         return passwordHash;
     }
-
     @Override
     public boolean isAccountNonExpired() {
         return true;

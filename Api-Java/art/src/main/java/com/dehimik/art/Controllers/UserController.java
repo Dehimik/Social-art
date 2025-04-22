@@ -5,6 +5,7 @@ import com.dehimik.art.Entities.User;
 import com.dehimik.art.dto.auth.AuthRequest;
 import com.dehimik.art.dto.auth.AuthResponse;
 import com.dehimik.art.dto.user.UpdateProfileDto;
+import com.dehimik.art.dto.user.UserResponseDto;
 import com.dehimik.art.services.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -18,9 +19,9 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable Long id) {
-        User user = userService.getUserById(id);
-        return ResponseEntity.ok(user);
+    public ResponseEntity<UserResponseDto> getUserById(@PathVariable Long id) {
+        UserResponseDto response = userService.getUserById(id);
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/by-username/{username}")
@@ -36,14 +37,11 @@ public class UserController {
     }
 
     @PutMapping("/{userId}/profile")
-    public ResponseEntity<User> updateProfile(
+    public ResponseEntity<UserResponseDto> updateProfile(
             @PathVariable Long userId,
-            @RequestBody UpdateProfileDto updateDto) {
-        User updatedUser = userService.updateProfile(
-                userId,
-                updateDto.getBio(),
-                updateDto.getProfilePictureUrl()
-        );
-        return ResponseEntity.ok(updatedUser);
+            @Valid @RequestBody UpdateProfileDto request) {
+
+        UserResponseDto response = userService.updateProfile(userId, request);
+        return ResponseEntity.ok(response);
     }
 }

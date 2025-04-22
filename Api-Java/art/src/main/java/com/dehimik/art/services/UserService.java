@@ -2,6 +2,8 @@ package com.dehimik.art.services;
 
 import com.dehimik.art.Entities.User;
 import com.dehimik.art.Repositories.UserRepository;
+import com.dehimik.art.dto.user.UpdateProfileDto;
+import com.dehimik.art.dto.user.UserResponseDto;
 import com.dehimik.art.exceptions.EmailExistsException;
 import com.dehimik.art.exceptions.UserNotFoundException;
 import com.dehimik.art.exceptions.UsernameExistsException;
@@ -15,6 +17,16 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+
+    private UserResponseDto convertToDto(User user) {
+        return new UserResponseDto(
+                user.getId(),
+                user.getUsername(),
+                user.getEmail(),
+                user.getBio(),
+                user.getProfilePictureUrl()
+        );
+    }
 
     @Transactional
     public User registerUser(String username, String email, String password) {
@@ -34,9 +46,10 @@ public class UserService {
     }
 
     @Transactional(readOnly = true)
-    public User getUserById(Long id) {
-        return userRepository.findById(id)
+    public UserResponseDto getUserById(Long id) {
+        User user = userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException(id));
+        return convertToDto(user);
     }
 
     @Transactional(readOnly = true)
@@ -46,14 +59,19 @@ public class UserService {
     }
 
     @Transactional
-    public User updateProfile(Long userId, String newBio, String newProfilePictureUrl) {
-        User user = getUserById(userId);
-        if (newBio != null) {
-            user.setBio(newBio);
+    public UserResponseDto updateProfile(Long userId, UpdateProfileDto request) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new UserNotFoundException(userId));
+
+        if (request.getBio() != null && !request.getBio().isEmpty()) {
+            user.setBio(request.getBio());
         }
-        if (newProfilePictureUrl != null) {
-            user.setProfilePictureUrl(newProfilePictureUrl);
+
+        if (request.getProfilePictureUrl() != null && !request.getProfilePictureUrl().isEmpty()) {
+            user.setProfilePictureUrl(request.getProfilePictureUrl());
         }
-        return userRepository.save(user);
+
+        User updatedUser = userRepository.save(user);
+        return convertToDto(updatedUser);
     }
 }
