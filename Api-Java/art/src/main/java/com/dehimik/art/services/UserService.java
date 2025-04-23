@@ -1,6 +1,7 @@
 package com.dehimik.art.services;
 
 import com.dehimik.art.Entities.User;
+import com.dehimik.art.Repositories.BaseRepository;
 import com.dehimik.art.Repositories.UserRepository;
 import com.dehimik.art.dto.user.UpdateProfileDto;
 import com.dehimik.art.dto.user.UserResponseDto;
@@ -14,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-public class UserService {
+public class UserService extends BaseService<User, Long>{
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
@@ -45,11 +46,11 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    @Transactional(readOnly = true)
-    public UserResponseDto getUserById(Long id) {
+    public UserResponseDto getUserDtoById(Long id) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException(id));
-        return convertToDto(user);
+        UserMapper userMapper = new UserMapper();
+        return userMapper.toDto(user);
     }
 
     @Transactional(readOnly = true)
@@ -73,5 +74,10 @@ public class UserService {
 
         User updatedUser = userRepository.save(user);
         return convertToDto(updatedUser);
+    }
+
+    @Override
+    protected BaseRepository<User, Long> getRepository() {
+        return userRepository;
     }
 }
