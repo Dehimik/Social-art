@@ -22,9 +22,14 @@ public class PostController {
     @Autowired
     private UserService userService;
 
+//    @PostMapping
+//    public ResponseEntity<?> createPost(@RequestBody PostDto dto, Principal principal) {
+//        Long userId = userService.getUserIdFromPrincipal(principal);
+//        return ResponseEntity.ok(postService.createPost(dto, userId));
+//    }
+
     @PostMapping
-    public ResponseEntity<?> createPost(@RequestBody PostDto dto, Principal principal) {
-        Long userId = userService.getUserIdFromPrincipal(principal);
+    public ResponseEntity<?> createPost(@RequestBody PostDto dto, Long userId) {
         return ResponseEntity.ok(postService.createPost(dto, userId));
     }
 
