@@ -13,5 +13,4 @@ public class UserResponseDto {
     private String email;
     private String bio;
     private String profilePictureUrl;
-    // Додайте інші поля, крім пароля
 }

@@ -13,6 +13,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.security.Principal;
+
 @Service
 @RequiredArgsConstructor
 public class UserService extends BaseService<User, Long>{
@@ -27,6 +29,18 @@ public class UserService extends BaseService<User, Long>{
                 user.getBio(),
                 user.getProfilePictureUrl()
         );
+    }
+
+    public Long getUserIdFromPrincipal(Principal principal) {
+        if (principal == null) {
+            throw new RuntimeException("Користувач не аутентифікований");
+        }
+
+        String username = principal.getName();
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new RuntimeException("Користувач не знайдений"));
+
+        return user.getId();
     }
 
     @Transactional
