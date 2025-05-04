@@ -5,10 +5,9 @@ import com.dehimik.art.Entities.User;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public interface PostRepository extends BaseRepository<Post, Long> {
     List<Post> findByUserId(Long userId);
-    //Optional<User> findByUsername(String username);
+    List<Post> findByUser(User user);
 }

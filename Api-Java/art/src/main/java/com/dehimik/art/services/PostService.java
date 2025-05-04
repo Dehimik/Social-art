@@ -38,7 +38,10 @@ public class PostService extends BaseService<Post, Long>{
     }
 
     public List<Post> getPostsByUser(Long userId) {
-        return postRepository.findByUserId(userId);
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        return postRepository.findByUser(user);
     }
 
     @Override

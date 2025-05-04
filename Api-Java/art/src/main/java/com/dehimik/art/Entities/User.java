@@ -42,6 +42,10 @@ public class User implements UserDetails {
     private Set<ProjectMember> projectMembers = new HashSet<>();
 
     @Setter
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Post> posts = new HashSet<>();
+
+    @Setter
     @Column(name = "profile_picture_url")
     private String profilePictureUrl;
 
