@@ -68,9 +68,11 @@ public class UserService extends BaseService<User, Long>{
     }
 
     @Transactional(readOnly = true)
-    public User getUserByUsername(String username) {
-        return userRepository.findByUsername(username)
+    public UserResponseDto getUserByUsername(String username) {
+        User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UserNotFoundException(username));
+        UserMapper userMapper = new UserMapper();
+        return userMapper.toDto(user);
     }
 
     @Transactional

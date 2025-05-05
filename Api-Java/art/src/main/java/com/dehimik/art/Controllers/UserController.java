@@ -13,8 +13,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
-
 @RestController
 @RequestMapping("/api/users")
 @RequiredArgsConstructor
@@ -28,8 +26,8 @@ public class UserController {
     }
 
     @GetMapping("/by-username/{username}")
-    public ResponseEntity<User> getUserByUsername(@PathVariable String username) {
-        User user = userService.getUserByUsername(username);
+    public ResponseEntity<UserResponseDto> getUserByUsername(@PathVariable String username) {
+        UserResponseDto user = userService.getUserByUsername(username);
         return ResponseEntity.ok(user);
     }
 
