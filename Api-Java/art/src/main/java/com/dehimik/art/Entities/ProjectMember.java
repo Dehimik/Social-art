@@ -1,5 +1,6 @@
 package com.dehimik.art.Entities;
 
+import com.dehimik.art.enums.Role;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
@@ -27,7 +28,7 @@ public class ProjectMember {
 
     @Setter
     @Getter
-    private String role;
+    private Role role;
 
     @Setter
     private LocalDateTime joinedAt;

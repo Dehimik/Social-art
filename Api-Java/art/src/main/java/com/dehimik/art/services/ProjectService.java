@@ -6,6 +6,7 @@ import com.dehimik.art.Entities.User;
 import com.dehimik.art.Repositories.ProjectMemberRepository;
 import com.dehimik.art.Repositories.ProjectRepository;
 import com.dehimik.art.Repositories.UserRepository;
+import com.dehimik.art.enums.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,7 +37,7 @@ public class ProjectService {
         return projectRepository.save(project);
     }
 
-    public ProjectMember addMemberToProject(Long projectId, Long userId, String role) {
+    public ProjectMember addMemberToProject(Long projectId, Long userId, Role role) {
         Project project = projectRepository.findById(projectId)
                 .orElseThrow(() -> new RuntimeException("Project not found"));
 
@@ -56,13 +57,13 @@ public class ProjectService {
         return projectMemberRepository.findByProjectId(projectId);
     }
 
-    public String getRoleForUserInProject(Long projectId, Long userId) {
+    public Role getRoleForUserInProject(Long projectId, Long userId) {
         return projectMemberRepository.findByUserIdAndProjectId(userId, projectId)
                 .map(ProjectMember::getRole)
                 .orElseThrow(() -> new RuntimeException("User is not member of this project"));
     }
 
-    public ProjectMember updateRoleInProject(Long projectId, Long userId, String newRole) {
+    public ProjectMember updateRoleInProject(Long projectId, Long userId, Role newRole) {
         ProjectMember member = projectMemberRepository.findByUserIdAndProjectId(userId, projectId)
                 .orElseThrow(() -> new RuntimeException("Project member not found"));
 

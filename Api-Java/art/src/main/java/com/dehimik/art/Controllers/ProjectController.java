@@ -3,6 +3,7 @@ package com.dehimik.art.Controllers;
 import com.dehimik.art.Entities.Project;
 import com.dehimik.art.Entities.ProjectMember;
 import com.dehimik.art.dto.project.ProjectMemberDto;
+import com.dehimik.art.enums.Role;
 import com.dehimik.art.services.ProjectService;
 import static com.dehimik.art.dto.project.ProjectMemberMapper.toDto;
 import lombok.RequiredArgsConstructor;
@@ -30,7 +31,7 @@ public class ProjectController {
     }
 
     @PostMapping("/{projectId}/members")
-    public ResponseEntity<ProjectMemberDto> addMember(@PathVariable Long projectId, @RequestParam Long userId, @RequestParam String role) {
+    public ResponseEntity<ProjectMemberDto> addMember(@PathVariable Long projectId, @RequestParam Long userId, @RequestParam Role role) {
         ProjectMember member = projectService.addMemberToProject(projectId, userId, role);
         return ResponseEntity.ok(toDto(member));
     }
@@ -41,12 +42,12 @@ public class ProjectController {
     }
 
     @GetMapping("/{projectId}/members/{userId}/role")
-    public String getRole(@PathVariable Long projectId, @PathVariable Long userId) {
+    public Role getRole(@PathVariable Long projectId, @PathVariable Long userId) {
         return projectService.getRoleForUserInProject(projectId, userId);
     }
 
     @PutMapping("/{projectId}/members/{userId}/role")
-    public ResponseEntity<ProjectMemberDto> updateRole(@PathVariable Long projectId, @PathVariable Long userId, @RequestParam String newRole) {
+    public ResponseEntity<ProjectMemberDto> updateRole(@PathVariable Long projectId, @PathVariable Long userId, @RequestParam Role newRole) {
         ProjectMember updatedMember = projectService.updateRoleInProject(projectId, userId, newRole);
         return ResponseEntity.ok(toDto(updatedMember));
     }

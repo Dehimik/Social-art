@@ -1,4 +1,5 @@
 package com.dehimik.art.dto.project;
+import com.dehimik.art.enums.Role;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -7,5 +8,5 @@ import lombok.Data;
 public class ProjectMemberDto {
     private Long userId;
     private String username;
-    private String role;
+    private Role role;
 }
