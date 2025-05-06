@@ -1,11 +1,11 @@
 package com.dehimik.art.dto.post;
 
 import lombok.Getter;
+import lombok.Setter;
 
-public class PostDto {
-    @Getter
+@Getter
+@Setter
+public class PostRequestDto {
     private String mediaUrl;
-    @Getter
     private String postText;
 }
-

@@ -8,6 +8,5 @@ import java.util.List;
 
 @Repository
 public interface PostRepository extends BaseRepository<Post, Long> {
-    List<Post> findByUserId(Long userId);
     List<Post> findByUser(User user);
 }
