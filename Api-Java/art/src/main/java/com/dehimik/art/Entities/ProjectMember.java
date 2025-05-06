@@ -1,12 +1,15 @@
 package com.dehimik.art.Entities;
 
 import jakarta.persistence.*;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name="\"project_members\"")
+@Data
 public class ProjectMember {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,7 +27,7 @@ public class ProjectMember {
 
     @Setter
     @Getter
-    private String role;  // Роль користувача в проекті
+    private String role;
 
     @Setter
     private LocalDateTime joinedAt;

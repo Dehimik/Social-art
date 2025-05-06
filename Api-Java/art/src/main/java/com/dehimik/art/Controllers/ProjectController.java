@@ -2,7 +2,9 @@ package com.dehimik.art.Controllers;
 
 import com.dehimik.art.Entities.Project;
 import com.dehimik.art.Entities.ProjectMember;
+import com.dehimik.art.dto.project.ProjectMemberDto;
 import com.dehimik.art.services.ProjectService;
+import static com.dehimik.art.dto.project.ProjectMemberMapper.toDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,9 +30,9 @@ public class ProjectController {
     }
 
     @PostMapping("/{projectId}/members")
-    public ResponseEntity<ProjectMember> addMember(@PathVariable Long projectId, @RequestParam Long userId, @RequestParam String role) {
+    public ResponseEntity<ProjectMemberDto> addMember(@PathVariable Long projectId, @RequestParam Long userId, @RequestParam String role) {
         ProjectMember member = projectService.addMemberToProject(projectId, userId, role);
-        return ResponseEntity.status(HttpStatus.CREATED).body(member);
+        return ResponseEntity.ok(toDto(member));
     }
 
     @GetMapping("/{projectId}/members")
@@ -44,9 +46,9 @@ public class ProjectController {
     }
 
     @PutMapping("/{projectId}/members/{userId}/role")
-    public ResponseEntity<ProjectMember> updateRole(@PathVariable Long projectId, @PathVariable Long userId, @RequestParam String newRole) {
+    public ResponseEntity<ProjectMemberDto> updateRole(@PathVariable Long projectId, @PathVariable Long userId, @RequestParam String newRole) {
         ProjectMember updatedMember = projectService.updateRoleInProject(projectId, userId, newRole);
-        return ResponseEntity.ok(updatedMember);
+        return ResponseEntity.ok(toDto(updatedMember));
     }
 
     @DeleteMapping("/{projectId}/members/{userId}")
