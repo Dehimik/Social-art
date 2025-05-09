@@ -28,6 +28,7 @@ public class ProjectMember {
 
     @Setter
     @Getter
+    @Enumerated(EnumType.STRING)
     private Role role;
 
     @Setter
