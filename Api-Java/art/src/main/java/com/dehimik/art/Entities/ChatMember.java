@@ -1,5 +1,6 @@
 package com.dehimik.art.Entities;
 
+import com.dehimik.art.enums.Role;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
@@ -30,7 +31,8 @@ public class ChatMember {
 
     @Getter
     @Setter
-    private String role;
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     @Getter
     @Setter
@@ -39,7 +41,7 @@ public class ChatMember {
 
     public ChatMember() {}
 
-    public ChatMember(ChatGroup group, User user, String role) {
+    public ChatMember(ChatGroup group, User user, Role role) {
         this.id = new ChatMemberId(group.getId(), user.getId());
         this.group = group;
         this.user = user;
