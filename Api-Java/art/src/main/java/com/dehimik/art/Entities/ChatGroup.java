@@ -15,9 +15,14 @@ public class ChatGroup {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Getter
+    @Setter
     private String name;
 
     @ManyToOne
+    @Getter
+    @Setter
+    @JoinColumn(name = "created_by_id")
     private User createdBy;
 
     @Column(name = "created_at", updatable = false)

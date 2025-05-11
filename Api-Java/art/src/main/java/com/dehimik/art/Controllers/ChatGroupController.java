@@ -31,8 +31,11 @@ public class ChatGroupController {
     private final ChatMessageRepository messageRepo;
 
     @PostMapping
-    public ResponseEntity<?> createGroup(@RequestBody CreateGroupRequest request, Principal principal) {
-        User creator = userRepo.findByUsername(principal.getName())
+    public ResponseEntity<?> createGroup(@RequestBody CreateGroupRequest request, Long creatorId/*Principal principal*/) {
+        /*User creator = userRepo.findByUsername(principal.getName())
+                .orElseThrow(() -> new RuntimeException("User not found"));*/
+
+        User creator = userRepo.findById(creatorId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
         ChatGroup group = new ChatGroup();
@@ -56,8 +59,10 @@ public class ChatGroupController {
     }
 
     @GetMapping("/{groupId}/messages")
-    public ResponseEntity<?> getGroupMessages(@PathVariable Long groupId, Principal principal) {
-        User user = userRepo.findByUsername(principal.getName())
+    public ResponseEntity<?> getGroupMessages(@PathVariable Long groupId, Long userId/*Principal principal*/) {
+        /*User user = userRepo.findByUsername(principal.getName())
+                .orElseThrow(() -> new RuntimeException("User not found"));*/
+        User user = userRepo.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
         ChatGroup group = groupRepo.findById(groupId)
@@ -85,10 +90,12 @@ public class ChatGroupController {
     @PostMapping("/{groupId}/members")
     public ResponseEntity<?> addMember(@PathVariable Long groupId,
                                        @RequestBody AddMemberRequest request,
-                                       Principal principal) {
-        User currentUser = userRepo.findByUsername(principal.getName())
+                                       @RequestParam Long adminId/*,
+                                       Principal principal*/) {
+        //User currentUser = userRepo.findByUsername(principal.getName())
+               // .orElseThrow(() -> new RuntimeException("User not found"));
+        User currentUser = userRepo.findById(adminId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
-
         ChatGroup group = groupRepo.findById(groupId)
                 .orElseThrow(() -> new RuntimeException("Group not found"));
 
