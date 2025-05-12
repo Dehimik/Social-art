@@ -17,7 +17,7 @@ public class ChatMember {
 
     @ManyToOne
     @MapsId("groupId")
-    @JoinColumn(name = "group_id")
+    @JoinColumn(name = "chat_id")
     @Getter
     @Setter
     private ChatGroup group;

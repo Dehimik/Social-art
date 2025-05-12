@@ -73,8 +73,9 @@ public class ChatGroupService extends BaseService<ChatGroup, Long>{
         ChatMember adminMember = memberRepo.findById(adminId)
                 .orElseThrow(() -> new RuntimeException("Not a group member"));
 
-        if (!"OWNER".equalsIgnoreCase(String.valueOf(adminMember.getRole()))) {
-            throw new AccessDeniedException("Only owner can add members");
+        if (!"ADMIN".equalsIgnoreCase(String.valueOf(adminMember.getRole()))) {
+            //throw new AccessDeniedException("Only owner can add members");
+            throw new RuntimeException("Only owner can add members");
         }
 
         User newUser = userRepo.findById(request.getUserId())

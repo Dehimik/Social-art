@@ -33,9 +33,9 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()  // Вимикаємо захист CSRF
-                .authorizeRequests()
-                .requestMatchers("/**").permitAll()  // Дозволяємо доступ до всіх запитів
-                .anyRequest().permitAll();  // Для всіх інших запитів
+                .authorizeHttpRequests()
+                .requestMatchers("/api/**").permitAll()  // Дозволяємо доступ до всіх запитів
+                .anyRequest().authenticated();  // Для всіх інших запитів
         return http.build();
     }
 
