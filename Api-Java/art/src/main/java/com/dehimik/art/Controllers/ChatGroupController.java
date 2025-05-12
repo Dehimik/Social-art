@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/groups")
+@RequestMapping("/groups")
 @RequiredArgsConstructor
 public class ChatGroupController {
     private final ChatGroupService chatGroupService;
