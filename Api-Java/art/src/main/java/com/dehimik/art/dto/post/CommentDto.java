@@ -5,9 +5,9 @@ import java.time.Instant;
 
 @Data @NoArgsConstructor @AllArgsConstructor
 public class CommentDto {
-    private Integer id;
-    private Integer postId;
-    private Integer userId;
+    private Long id;
+    private Long postId;
+    private Long userId;
     private String content;
     private Instant createdAt;
 }

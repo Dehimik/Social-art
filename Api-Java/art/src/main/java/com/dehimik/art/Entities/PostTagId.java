@@ -7,6 +7,6 @@ import java.time.Instant;
 
 @Data @NoArgsConstructor @AllArgsConstructor
 public class PostTagId implements Serializable {
-    private Integer postId;
-    private Integer tagId;
+    private Long postId;
+    private Long tagId;
 }

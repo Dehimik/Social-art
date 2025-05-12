@@ -1,15 +1,19 @@
 package com.dehimik.art.Entities;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "\"posts\"")
+@NoArgsConstructor @AllArgsConstructor
 public class Post {
 
+    @Getter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -35,4 +39,7 @@ public class Post {
     @Getter
     @Setter
     private LocalDateTime updatedAt;
+
+    public Post(Long postId) {
+    }
 }

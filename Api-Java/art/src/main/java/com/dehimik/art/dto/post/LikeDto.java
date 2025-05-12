@@ -5,7 +5,7 @@ import java.time.Instant;
 
 @Data @NoArgsConstructor @AllArgsConstructor
 public class LikeDto {
-    private Integer id;
-    private Integer userId;
-    private Integer postId;
+    private Long id;
+    private Long userId;
+    private Long postId;
 }
