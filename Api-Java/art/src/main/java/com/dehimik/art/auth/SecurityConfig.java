@@ -34,7 +34,7 @@ public class SecurityConfig {
         http
                 .csrf().disable()  // Вимикаємо захист CSRF
                 .authorizeHttpRequests()
-                .requestMatchers("/api/**").permitAll()  // Дозволяємо доступ до всіх запитів
+                .requestMatchers("/**").permitAll()  // Дозволяємо доступ до всіх запитів
                 .anyRequest().authenticated();  // Для всіх інших запитів
         return http.build();
     }

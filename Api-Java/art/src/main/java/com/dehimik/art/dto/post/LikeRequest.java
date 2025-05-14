@@ -1,11 +1,10 @@
 package com.dehimik.art.dto.post;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
-import java.time.Instant;
 
 @Data @NoArgsConstructor @AllArgsConstructor
-public class LikeDto {
-    private Long id;
+public class LikeRequest {
+    @NotNull(message = "userId is required")
     private Long userId;
-    private Long postId;
 }

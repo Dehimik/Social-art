@@ -1,13 +1,13 @@
 package com.dehimik.art.dto.post;
 
 import lombok.*;
-import java.time.Instant;
+import java.time.LocalDateTime;
 
 @Data @NoArgsConstructor @AllArgsConstructor
-public class CommentDto {
+public class CommentResponse {
     private Long id;
     private Long postId;
     private Long userId;
     private String content;
-    private Instant createdAt;
+    private LocalDateTime createdAt;
 }

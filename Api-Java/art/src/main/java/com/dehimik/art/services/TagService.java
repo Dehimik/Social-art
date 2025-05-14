@@ -1,17 +1,20 @@
 package com.dehimik.art.services;
 
-import com.dehimik.art.Entities.*;
-import com.dehimik.art.Repositories.*;
-import com.dehimik.art.dto.post.TagDto;
+import com.dehimik.art.dto.post.*;
+import com.dehimik.art.Entities.Tag;
+import com.dehimik.art.Repositories.TagRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service @RequiredArgsConstructor
 public class TagService {
-    private final TagRepository repo;
-    public TagDto create(TagDto d) {
-        Tag e = repo.findByName(d.getName())
-                .orElseGet(() -> repo.save(new Tag(null, d.getName())));
-        return new TagDto(e.getId(), e.getName());
+    private final TagRepository tagRepo;
+
+    @Transactional
+    public TagResponse create(TagRequest req) {
+        Tag t = tagRepo.findByName(req.getName())
+                .orElseGet(() -> tagRepo.save(new Tag(null, req.getName(), null)));
+        return new TagResponse(t.getId(), t.getName());
     }
 }

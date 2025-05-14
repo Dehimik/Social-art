@@ -1,27 +1,33 @@
 package com.dehimik.art.Controllers;
 
-import com.dehimik.art.dto.post.LikeDto;
-import com.dehimik.art.services.*;
+import com.dehimik.art.dto.post.*;
+import com.dehimik.art.services.LikeService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
-@RequestMapping("/posts/{postId}/likes")
-@RequiredArgsConstructor
+@RestController @RequestMapping("/posts/{postId}/likes")
+@RequiredArgsConstructor @Validated
 public class LikeController {
     private final LikeService svc;
 
     @PostMapping
-    public LikeDto like(@PathVariable Long postId,
-                        @RequestParam Long userId) {
-        return svc.like(new LikeDto(null, userId, postId));
+    public ResponseEntity<LikeResponse> like(
+            @PathVariable Long postId,
+            @Valid @RequestBody LikeRequest req
+    ) {
+        return ResponseEntity.status(201)
+                .body(svc.like(postId, req));
     }
 
     @DeleteMapping
-    public ResponseEntity<Void> unlike(@PathVariable Long postId,
-                                       @RequestParam Long userId) {
-        svc.unlike(userId, postId);
+    public ResponseEntity<Void> unlike(
+            @PathVariable Long postId,
+            @RequestParam Long userId
+    ) {
+        svc.unlike(postId, userId);
         return ResponseEntity.noContent().build();
     }
 

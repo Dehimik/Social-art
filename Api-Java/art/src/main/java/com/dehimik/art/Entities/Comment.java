@@ -2,36 +2,25 @@ package com.dehimik.art.Entities;
 
 import jakarta.persistence.*;
 import lombok.*;
-import java.io.Serializable;
-import java.time.Instant;
+import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "comments")
+@Entity @Table(name = "comments")
 @Data @NoArgsConstructor @AllArgsConstructor
 public class Comment {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Getter
-    @Setter
-    @ManyToOne
-    @JoinColumn(name = "post_id", nullable = false)
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "post_id")
     private Post post;
 
-    @Getter
-    @Setter
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "user_id")
     private User user;
 
-    @Getter
-    @Setter
     @Column(columnDefinition = "TEXT", nullable = false)
     private String content;
 
-    @Getter
-    @Setter
     @Column(name = "created_at", nullable = false, updatable = false)
-    private Instant createdAt = Instant.now();
+    private LocalDateTime createdAt = LocalDateTime.now();
 }
