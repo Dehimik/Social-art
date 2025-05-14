@@ -45,6 +45,8 @@ public class Post {
     public Post(Long postId) {
     }
 
+    @Getter
+    @Setter
     @ManyToMany
     @JoinTable(name = "post_tags",
             joinColumns = @JoinColumn(name = "post_id"),

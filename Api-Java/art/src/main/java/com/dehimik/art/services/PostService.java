@@ -1,12 +1,15 @@
 package com.dehimik.art.services;
 
 import com.dehimik.art.Entities.Post;
+import com.dehimik.art.Entities.Tag;
 import com.dehimik.art.Entities.User;
 import com.dehimik.art.Repositories.BaseRepository;
 import com.dehimik.art.Repositories.PostRepository;
+import com.dehimik.art.Repositories.TagRepository;
 import com.dehimik.art.Repositories.UserRepository;
 import com.dehimik.art.dto.post.PostRequestDto;
 import com.dehimik.art.dto.post.PostResponseDto;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +24,9 @@ public class PostService extends BaseService<Post, Long>{
 
     @Autowired
     private PostRepository postRepository;
+
+    @Autowired
+    private TagRepository tagRepository;
 
     @Autowired
     private UserRepository userRepository;
@@ -88,6 +94,25 @@ public class PostService extends BaseService<Post, Long>{
         }
 
         postRepository.delete(post);
+    }
+
+    @Transactional
+    public void addTagToPost(Long postId, Long tagId) {
+        Post post = postRepository.findById(postId)
+                .orElseThrow(() -> new EntityNotFoundException("Post not found: " + postId));
+        Tag tag = tagRepository.findById(tagId)
+                .orElseThrow(() -> new EntityNotFoundException("Tag not found: " + tagId));
+
+        post.getTags().add(tag);
+        postRepository.save(post);
+    }
+
+    @Transactional
+    public void removeTagFromPost(Long postId, Long tagId) {
+        Post post = postRepository.findById(postId)
+                .orElseThrow(() -> new EntityNotFoundException("Post not found: " + postId));
+        post.getTags().removeIf(t -> t.getId().equals(tagId));
+        postRepository.save(post);
     }
 
     @Override
