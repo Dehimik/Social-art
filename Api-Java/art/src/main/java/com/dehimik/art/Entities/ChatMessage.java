@@ -8,7 +8,7 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "\"messages\"")
+@Table(name = "messages")
 @Data
 public class ChatMessage {
     @Id

@@ -43,9 +43,8 @@ public class ChatGroupController {
     @PostMapping("/{groupId}/members")
     public ResponseEntity<?> addMember(@PathVariable Long groupId,
                                        @RequestBody AddMemberRequest request,
-                                       @RequestParam String creatorName/*,
-                                       Principal principal*/) {
-        chatGroupService.addMember(groupId, creatorName, request);
+                                       @RequestParam Principal principal) {
+        chatGroupService.addMember(groupId, principal.getName(), request);
         return ResponseEntity.ok("Member added");
     }
 }

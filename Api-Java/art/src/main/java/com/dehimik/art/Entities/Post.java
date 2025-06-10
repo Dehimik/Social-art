@@ -11,7 +11,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "\"posts\"")
+@Table(name = "posts")
 @NoArgsConstructor @AllArgsConstructor
 public class Post {
 
@@ -41,9 +41,6 @@ public class Post {
     @Getter
     @Setter
     private LocalDateTime updatedAt;
-
-    public Post(Long postId) {
-    }
 
     @Getter
     @Setter

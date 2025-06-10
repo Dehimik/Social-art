@@ -23,7 +23,8 @@ public class PostController {
     private UserService userService;
 
     @PostMapping
-    public ResponseEntity<?> createPost(@RequestBody PostRequestDto dto, Long userId) {
+    public ResponseEntity<?> createPost(@RequestBody PostRequestDto dto, Principal principal) {
+        Long userId = userService.getUserIdFromPrincipal(principal);
         return ResponseEntity.ok(postService.createPost(dto, userId));
     }
 
@@ -40,14 +41,14 @@ public class PostController {
     }
 
     @PatchMapping("/{postId}")
-    public ResponseEntity<?> patchPost(@PathVariable Long postId, @RequestBody PostRequestDto dto, Long userId /*Principal principal*/) {
-        //Long userId = userService.getUserIdFromPrincipal(principal);
+    public ResponseEntity<?> patchPost(@PathVariable Long postId, @RequestBody PostRequestDto dto, Principal principal) {
+        Long userId = userService.getUserIdFromPrincipal(principal);
         return ResponseEntity.ok(postService.updatePost(postId, dto, userId));
     }
 
     @DeleteMapping("/{postId}")
-    public ResponseEntity<?> deletePost(@PathVariable Long postId, Long userId /*Principal principal*/) {
-        //Long userId = userService.getUserIdFromPrincipal(principal);
+    public ResponseEntity<?> deletePost(@PathVariable Long postId, Principal principal) {
+        Long userId = userService.getUserIdFromPrincipal(principal);
         postService.deletePost(postId, userId);
         return ResponseEntity.ok().build();
     }

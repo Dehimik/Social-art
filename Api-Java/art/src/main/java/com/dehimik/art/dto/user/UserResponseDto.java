@@ -5,7 +5,6 @@ import lombok.Data;
 import lombok.Value;
 
 @Value
-@Data
 @AllArgsConstructor
 public class UserResponseDto {
     private Long id;

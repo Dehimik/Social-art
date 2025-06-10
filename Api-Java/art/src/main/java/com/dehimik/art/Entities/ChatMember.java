@@ -9,7 +9,7 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "\"chat_members\"")
+@Table(name = "chat_members")
 @Data
 public class ChatMember {
     @EmbeddedId

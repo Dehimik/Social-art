@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 @Entity
-@Table(name = "\"user\"")
+@Table(name = "user")
 @Data
 @NoArgsConstructor @AllArgsConstructor @Builder
 public class User implements UserDetails {
@@ -47,9 +47,6 @@ public class User implements UserDetails {
 
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
-
-    public User(Long userId) {
-    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

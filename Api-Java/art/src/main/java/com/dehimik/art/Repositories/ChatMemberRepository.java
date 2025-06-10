@@ -8,7 +8,7 @@ import com.dehimik.art.Entities.User;
 import java.util.List;
 import java.util.Optional;
 
-public interface ChatMemberRepository extends BaseRepository<ChatMember, Long>{
+public interface ChatMemberRepository extends BaseRepository<ChatMember, ChatMemberId>{
     Optional<ChatMember> findById(ChatMemberId memberId);
     List<ChatMember> findByUser(User user);
     List<ChatMember> findByGroup(ChatGroup group);

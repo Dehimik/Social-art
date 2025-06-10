@@ -22,14 +22,11 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PostService extends BaseService<Post, Long>{
 
-    @Autowired
-    private PostRepository postRepository;
+    private final PostRepository postRepository;
 
-    @Autowired
-    private TagRepository tagRepository;
+    private final TagRepository tagRepository;
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     private PostResponseDto convertToDto(Post post){
         return new PostResponseDto(
